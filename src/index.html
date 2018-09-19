@@ -11,16 +11,57 @@
   <script src="./js/index.js"></script>
   <link rel="stylesheet" href="./themes/github-v2.css" id="codeThemeId" />
   <link rel="stylesheet" id="pageThemeId" />
+  <style>
+    input[type=checkbox].css-checkbox {
+      position: absolute;
+      z-index: -1000;
+      left: -1000px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      width: 1px;
+      margin: -1px;
+      padding: 0;
+      border: 0;
+    }
+
+    input[type=checkbox].css-checkbox+label.css-label {
+      padding-left: 30px;
+      height: 25px;
+      display: inline-block;
+      line-height: 25px;
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      font-size: 20px;
+      vertical-align: middle;
+      cursor: pointer;
+
+    }
+
+    input[type=checkbox].css-checkbox:checked+label.css-label {
+      background-position: 0 -25px;
+    }
+
+    label.css-label {
+      background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_391ce065f36b1460c4845fa9b5173fba.png);
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+  </style>
 </head>
 <body>
 <div class="topheader">
   <a href="http://md.barretlee.com"><h1>WXMarkdown</h1></a>
   <span>微信公众号格式化工具</span>
   <ul>
-    <li class="forkbtn"><a href="https://github.com/barretlee/online-markdown" target="_blank">源码地址</a></li>
-    <li class="forkbtn"><a href="https://github.com/barretlee/online-markdown/issues/new" target="_blank">提需求</a></li>
-    <li><a href="http://www.barretlee.com/" target="_blank">关于小胡子哥</a></li>
-    <li><iframe allowtransparency="true" frameborder="0" scrolling="0" width="90px" height="20px" class="github-star" src="http://ghbtns.com/github-btn.html?user=barretlee&amp;repo=online-markdown&amp;type=watch&amp;count=true&amp;size=middle"></iframe></li>
+    <li class="forkbtn">
+      <input type="checkbox" name="checkboxG1" id="isPersonalAccount" class="css-checkbox" checked/>
+      <label for="isPersonalAccount" class="css-label">个人订阅号</label>
+    </li>
   </ul>
 </div>
 <textarea id="input" spellcheck="false"></textarea>

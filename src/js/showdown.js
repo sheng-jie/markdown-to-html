@@ -1155,6 +1155,13 @@ showdown.subParser('anchors', function (text, options, globals) {
     }
 
     url = showdown.helper.escapeCharacters(url, '*_', false);
+
+    //If checked the personal account option then convet link to [linkText：url] format.
+    if (document.getElementById("isPersonalAccount").value == "on") {
+      result = '[' + linkText + '：<u>' + url + '</u>' + ']';
+      return result;
+    }
+    
     var result = '<a href="' + url + '"';
 
     if (title !== '' && title !== null) {
