@@ -1,15 +1,7 @@
 # Online Markdown Converter
 
-A online markdown converter specially for Wechat Public formatting.
+在原版的基础上针对个人订阅号进行优化：
 
-- Online Address: <http://md.barretlee.com/>
-- Issue & Suggestion: <https://github.com/barretlee/online-markdown/issues/new>
-
-### Changelog
-
-- 支持更换代码样式主题
-- 代码长度溢出时横向滚动
-
-### LICENSE
-
-MIT. Thanks for @Phodal.
+个人订阅号不允许文章中插入链接，所以对链接进行特殊处理，在转换界面添加【个人订阅号】选项，默认勾选。
+勾选后，`[shengjie的github](https://github.com/sheng-jie)`将不再转换为[shengjie的github](https://github.com/sheng-jie)。
+而是转换为`[shengjie的github：https://github.com/sheng-jie)`输出。
