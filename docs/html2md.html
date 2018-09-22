@@ -1,0 +1,392 @@
+<html lang="en" data-blockbyte-bs-uid="84115">
+
+<head>
+  <meta charset="utf-8">
+  <title>Html to Markdown</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+  <style>
+    .cf:before,
+    .cf:after {
+      content: " ";
+      display: table;
+    }
+
+    .cf:after {
+      clear: both;
+    }
+
+    .cf {
+      *zoom: 1;
+    }
+
+    * {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #ccc;
+      margin: 0 auto;
+      font-size: 14px;
+      font-family: sans-serif;
+      line-height: 1.4;
+      color: #333;
+    }
+
+    header {
+      padding: 1em;
+      overflow: hidden;
+      background-color: #fff;
+    }
+
+    footer {
+      text-align: center;
+      color: #666;
+      text-shadow: 0 1px 0 #ddd;
+    }
+
+    a,
+    a:visited {
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    h1 {
+      float: left;
+      margin: 0;
+      font-size: 1em;
+    }
+
+    h2 {
+      color: #fff;
+      margin-bottom: 0;
+    }
+
+    .col,
+    .form-group {
+      padding: 0 10px;
+    }
+
+    .form-group {
+      float: left;
+    }
+
+    textarea {
+      width: 100%;
+      height: 600px;
+      margin: 0;
+      padding: .5em;
+      overflow: auto;
+      border: none;
+      background-color: #fff;
+      font-family: courier, monospace;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    #input {
+      background: #333;
+      color: #fff;
+    }
+
+    .toolbar {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      background-color: #e6e6e6;
+    }
+
+    select {
+      display: block;
+      width: 100%;
+      font-size: 14px;
+    }
+
+    @media (min-width: 768px) {
+      body {
+        font-size: 16px;
+      }
+
+      .col {
+        float: left;
+        width: 50%;
+        padding: 0 15px;
+      }
+
+      .row {
+        padding-right: 15px;
+        padding-left: 15px;
+      }
+    }
+
+    .form-group label {
+      font-size: 14px;
+    }
+
+  </style>
+  <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
+  <style class="blockbyte-bs-style" data-name="content">
+    body>div#blockbyte-bs-indicator>div {
+      opacity: 0;
+      pointer-events: none
+    }
+
+    body>iframe#blockbyte-bs-sidebar.blockbyte-bs-visible,
+    body>iframe#blockbyte-bs-overlay.blockbyte-bs-visible {
+      opacity: 1;
+      pointer-events: auto
+    }
+
+    body.blockbyte-bs-noscroll {
+      overflow: hidden !important
+    }
+
+    body>div#blockbyte-bs-indicator>div {
+      position: absolute;
+      transform: translate3d(-40px, 0, 0);
+      top: 0;
+      left: 0;
+      width: 40px !important;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 0 10px 10px 0;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 2
+    }
+
+    body>div#blockbyte-bs-indicator>div>span {
+      -webkit-mask: no-repeat center/32px;
+      -webkit-mask-image: url(chrome-extension://jdbnofccmhefkmjbkkdkfiicjkgofkdh/img/icon-bookmark.svg);
+      background-color: #ffffff;
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%
+    }
+
+    body>div#blockbyte-bs-indicator[data-pos='right'] {
+      left: auto;
+      right: 0
+    }
+
+    body>div#blockbyte-bs-indicator[data-pos='right']>div {
+      transform: translate3d(40px, 0, 0);
+      left: auto;
+      right: 0;
+      border-radius: 10px 0 0 10px
+    }
+
+    body>div#blockbyte-bs-indicator.blockbyte-bs-fullHeight>div {
+      border-radius: 0
+    }
+
+    body>div#blockbyte-bs-indicator.blockbyte-bs-hover>div {
+      transform: translate3d(0, 0, 0);
+      opacity: 1
+    }
+
+    body>div#blockbyte-bs-indicator[data-pos='left'].blockbyte-bs-has-lsb {
+      height: 100% !important;
+      top: 0 !important
+    }
+
+    body>div#blockbyte-bs-indicator[data-pos='left'].blockbyte-bs-has-lsb>div {
+      background: transparent
+    }
+
+    body>div#blockbyte-bs-indicator[data-pos='left'].blockbyte-bs-has-lsb>div>span {
+      -webkit-mask-position-y: 20px
+    }
+
+    body>iframe#blockbyte-bs-sidebar {
+      width: 350px;
+      max-width: none;
+      height: 0;
+      z-index: 2147483646;
+      background-color: rgba(255, 255, 255, 0.8) !important;
+      border: none;
+      display: block !important;
+      transform: translate3d(-350px, 0, 0);
+      transition: width 0s 0.3s, height 0s 0.3s, opacity 0.3s, transform 0.3s
+    }
+
+    body>iframe#blockbyte-bs-sidebar[data-pos='right'] {
+      left: auto;
+      right: 0;
+      transform: translate3d(350px, 0, 0)
+    }
+
+    body>iframe#blockbyte-bs-sidebar.blockbyte-bs-visible {
+      width: calc(100% + 350px);
+      height: 100%;
+      transform: translate3d(0, 0, 0);
+      transition: opacity 0.3s, transform 0.3s
+    }
+
+    body>iframe#blockbyte-bs-sidebar.blockbyte-bs-hideMask {
+      background: none !important
+    }
+
+    body>iframe#blockbyte-bs-sidebar.blockbyte-bs-hideMask:not(.blockbyte-bs-hover) {
+      width: calc(350px + 50px)
+    }
+
+    body>iframe#blockbyte-bs-overlay {
+      width: 100%;
+      max-width: none;
+      height: 100%;
+      z-index: 2147483647;
+      border: none;
+      background: rgba(0, 0, 0, 0.5) !important;
+      transition: opacity 0.3s
+    }
+
+  </style>
+</head>
+
+<body>
+  <header>
+      <h1>Html to Markdown</h1>
+    <a  style="float: right" href="index.html"> ==> Markdown to Html </a>
+    <a style="float: right" href="javascript:copy()">复制</a>
+  </header>
+  <div class="row cf">
+    <div class="col">
+      <h2>HTML</h2>
+      <textarea cols="100" rows="10" id="input">
+
+            </textarea>
+    </div>
+    <div class="col">
+      <h2>Markdown</h2>
+      <textarea readonly="" cols="100" rows="10" id="output"></textarea>
+    </div>
+  </div>
+
+  <div class="row cf">
+    <form method="get" action="/turndown" id="options">
+      <div class="form-group">
+        <label for="headingStyle">Heading style</label>
+        <select name="headingStyle" id="headingStyle">
+          <option value="setext">setext</option>
+          <option value="atx">atx</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="hr">Horizontal rule</label>
+        <select name="hr" id="hr">
+          <option value="* * *">* * *</option>
+          <option value="- - -">- - -</option>
+          <option value="_ _ _">_ _ _</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="bulletListMarker">Bullet</label>
+        <select name="bulletListMarker" id="bulletListMarker">
+          <option value="*">*</option>
+          <option value="-">-</option>
+          <option value="+">+</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="codeBlockStyle">Code block style</label>
+        <select name="codeBlockStyle" id="codeBlockStyle">
+          <option value="indented">indented</option>
+          <option value="fenced">fenced</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="fence">Fence</label>
+        <select name="fence" id="fence">
+          <option value="```">```</option>
+          <option value="~~~">~~~</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="emDelimiter">Em delimiter</label>
+        <select name="emDelimiter" id="emDelimiter">
+          <option value="_">_</option>
+          <option value="*">*</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="strongDelimiter">Strong delimiter</label>
+        <select name="strongDelimiter" id="strongDelimiter">
+          <option value="**">**</option>
+          <option value="__">__</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="linkStyle">Link style</label>
+        <select name="linkStyle" id="linkStyle">
+          <option value="inlined">inlined</option>
+          <option value="referenced">referenced</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="linkReferenceStyle">Link reference style</label>
+        <select name="linkReferenceStyle" id="linkReferenceStyle">
+          <option value="full">full</option>
+          <option value="collapsed">collapsed</option>
+          <option value="shortcut">shortcut</option>
+        </select>
+      </div>
+    </form>
+  </div>
+
+  <footer>
+    <p>turndown is copyright © 2017 <a href="http://www.domchristie.co.uk/">Dom Christie</a> and is released under
+      the MIT license</p>
+  </footer>
+  <script>
+    ;
+    (function () {
+      var input = document.getElementById('input')
+      var output = document.getElementById('output')
+      var optionsForm = document.getElementById('options')
+      var turndownService = new window.TurndownService(options())
+
+      input.addEventListener('input', update)
+
+      optionsForm.addEventListener('change', function () {
+        turndownService = new window.TurndownService(options())
+        update()
+      })
+
+      update()
+
+      function update() {
+        output.value = turndownService.turndown(input.value)
+      }
+
+      function options() {
+        var opts = {}
+        var inputs = optionsForm.getElementsByTagName('select')
+        for (var i = 0; i < inputs.length; i++) {
+          var input = inputs[i]
+          opts[input.name] = input.value
+        }
+        return opts
+      }
+    })()
+
+    function copy() {
+      var input = document.getElementById("output");
+      input.select();
+      document.execCommand("copy");
+    }
+
+  </script>
+</body>
+
+</html>

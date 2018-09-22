@@ -57,20 +57,21 @@
 
 <body>
   <div class="topheader">
-    <a href="http://md.barretlee.com">
-      <h1>WXMarkdown</h1>
-    </a>
-    <span>微信公众号格式化工具
-    </span>
+      <h1>Markdown to Html</h1>
+
+    <a href="html2md.html">
+        <span>==> Html to Markdown</span>
+      </a>
     <ul>
       <li class="forkbtn">
-        <input type="checkbox" name="checkboxG1" id="isPersonalAccount" class="css-checkbox" checked/>
+        <input type="checkbox" name="checkboxG1" id="isPersonalAccount" class="css-checkbox" checked />
         <label for="isPersonalAccount" class="css-label">个人订阅号</label>
       </li>
     </ul>
   </div>
   <textarea id="input" spellcheck="false"></textarea>
 
+  
   <button class="btn copy-button" style="display:none;" data-clipboard-action="cut" data-clipboard-target="#outputCtt">复制</button>
   <button class="btn convert-button">预览</button>
 
@@ -96,6 +97,13 @@
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
+
+    function copy() {
+      var input = document.getElementById("output");
+      input.select();
+      document.execCommand("copy");
+    };
+
   </script>
 
 </body>
